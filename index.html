@@ -1,17 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Toorysss Dev Space</title>
+    <title>TOORYSSS SYSTEM</title>
     <style>
-        body { background: #121212; color: #00ff00; font-family: monospace; padding: 50px; }
-        h1 { border-bottom: 2px solid #00ff00; display: inline-block; }
-        .status { color: #ffffff; }
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #typewriter {
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            white-space: pre-wrap;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            background-color: #00ff00;
+            animation: blink 0.7s infinite;
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
-    <h1>> I'm riss without N</h1>
-    <p class="status">Current focus: Mastering HTML5 & CSS3</p>
-    <p>"Be happy , be horny , be lolot."</p>
+
+    <div id="typewriter"></div><span class="cursor">&nbsp;</span>
+
+    <script>
+        const text = ">> YOO LIL BRO...\n>> I'M RISS WITHOUT N.";
+        let index = 0;
+
+        function type() {
+            if (index < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(type, 100); // Kelajuan menaip (100ms)
+            }
+        }
+
+        window.onload = type;
+    </script>
 </body>
 </html>
+
