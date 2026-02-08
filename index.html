@@ -5,56 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOORYSSS SYSTEM</title>
     <style>
-        /* Sediakan kanvas hitam penuh skrin */
-        body { 
-            margin: 0; 
-            padding: 0; 
-            background-color: black; 
-            overflow: hidden; 
-            font-family: 'Courier New', Courier, monospace; 
-        }
+        body { margin: 0; padding: 0; background-color: black; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
+        canvas { display: block; position: absolute; top: 0; left: 0; z-index: 1; opacity: 0.4; } /* Matrix rain lebih malap supaya teks jelas */
 
-        /* Hujan Matrix di belakang */
-        canvas { 
-            display: block; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            z-index: 1; 
-        }
-
-        /* Kotak Teks Gergasi di depan */
         .container {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 20px;
+            left: 20px;
             z-index: 2;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.8); /* Gelapkan sikit belakang tulisan */
-            padding: 20px;
-            border: 2px solid #00ff00;
-            box-shadow: 0 0 20px #00ff00;
-            width: 90%;
-            max-width: 600px;
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 16px; /* Saiz sederhana */
         }
 
-        #typewriter {
-            color: #00ff00;
-            font-size: 35px; /* TULISAN BESAR */
-            font-weight: bold;
-            text-shadow: 0 0 10px #00ff00;
-            word-wrap: break-word;
-            line-height: 1.2;
-        }
-
-        .cursor { 
-            color: #00ff00; 
-            font-size: 35px; 
-            animation: blink 0.7s infinite; 
-        }
-
-        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+        .header { color: #00ff00; font-size: 24px; font-weight: bold; text-decoration: underline; margin-bottom: 5px; }
+        .focus { color: #fff; margin-bottom: 30px; }
+        
+        .code-block { margin-bottom: 25px; }
+        .keyword { color: #c678dd; } /* Purple style */
+        .operator { color: #00ff00; } /* Green style */
+        .string { color: #fff; }
+        .indent { margin-left: 30px; border-left: 1px solid #444; padding-left: 15px; }
+        .quote { color: #fff; font-style: italic; margin-top: 10px; display: block; }
     </style>
 </head>
 <body>
@@ -62,28 +34,48 @@
     <canvas id="matrix"></canvas>
 
     <div class="container">
-        <div id="typewriter"></div><span class="cursor">_</span>
+        <div class="header">> RISSSYSTEM</div>
+        <div class="focus">Current focus: Mastering HTML5 JAVA , & CSS3</div>
+
+        <div class="code-block">
+            <span class="keyword">inf</span> <span class="operator">></span> <span class="operator">TOORYSSS_SYSTEM</span><br>
+            {
+            <div class="indent">
+                <span class="string">i'm riss without N</span><br><br>
+                <span class="string">this is my first real IT project. I’ve been<br>
+                about this life since I was 12.</span><br><br>
+                <span class="quote">"Be happy , be horny , be lolot."</span>
+            </div>
+            }
+        </div>
+
+        <div class="code-block">
+            <span class="keyword">prompt</span> <span class="operator">></span> <span class="operator">index_html</span><br>
+            {
+            <div class="indent">
+                <span class="operator">git</span> add index.html<br>
+                <span class="operator">git</span> commit -m "update project"<br>
+                <span class="operator">git</span> push origin main
+            </div>
+            }
+        </div>
     </div>
 
     <script>
-        // --- 1. LOGIK HUJAN MATRIX ---
         const canvas = document.getElementById('matrix');
         const ctx = canvas.getContext('2d');
-
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+";
-        const fontSize = 16;
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()";
+        const fontSize = 14;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
 
         function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#00ff00";
             ctx.font = fontSize + "px monospace";
-
             for (let i = 0; i < drops.length; i++) {
                 const text = letters.charAt(Math.floor(Math.random() * letters.length));
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
@@ -91,29 +83,8 @@
                 drops[i]++;
             }
         }
-        setInterval(drawMatrix, 35);
-
-        // --- 2. LOGIK TYPEWRITER ---
-        const message = ">> WELCOME TO MY WEBSITE BITCH...\n>> I'M RISS WITHOUT N.";
-        let index = 0;
-        const speed = 70; // Kelajuan menaip
-
-        function type() {
-            if (index < message.length) {
-                let char = message.charAt(index);
-                document.getElementById("typewriter").innerHTML += (char === "\n") ? "<br>" : char;
-                index++;
-                setTimeout(type, speed);
-            }
-        }
-
-        window.onload = type;
-
-        // Reset canvas jika skrin berubah saiz
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
+        setInterval(drawMatrix, 40);
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
     </script>
 </body>
 </html>
