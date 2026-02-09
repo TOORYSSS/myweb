@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOORYSSS SYSTEM</title>
+    <title>riss lolot system</title>
     <style>
         body { margin: 0; padding: 0; background-color: black; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
         canvas { display: block; position: absolute; top: 0; left: 0; z-index: 1; opacity: 0.4; } /* Matrix rain lebih malap supaya teks jelas */
@@ -16,7 +16,7 @@
             color: #ccc;
             line-height: 1.6;
             font-size: 16px; /* Saiz sederhana */
-        }
+        
 
         .header { color: #00ff00; font-size: 24px; font-weight: bold; text-decoration: underline; margin-bottom: 5px; }
         .focus { color: #fff; margin-bottom: 30px; }
@@ -34,7 +34,7 @@
     <canvas id="matrix"></canvas>
 
     <div class="container">
-        <div class="header">> RISSSYSTEM</div>
+        <div class="header"></div>
         <div class="focus">Current focus: Mastering HTML5,JAVA,&CSS3</div>
 
         <div class="code-block">
@@ -45,18 +45,18 @@
                 <span class="string">this is my first real IT project.</span><br><br>
                 <span class="quote">"Be happy , be horny , be lolot."</span>
             </div>
-            }
+            
         </div>
 
         <div class="code-block">
             <span class="keyword"></span> <span class="operator">></span> <span class="operator">index_html</span><br>
-            {
+            
             <div class="indent">
                 <span class="operator"></span><br>
                 <span class="operator"></span> "update project"<br>
                 <span class="operator"></span>
             </div>
-            }
+            
         </div>
     </div>
 
@@ -80,8 +80,8 @@
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
                 if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
-            }
-        }
+           
+        
         setInterval(drawMatrix, 40);
         window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
     </script>
