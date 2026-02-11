@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RISSSYSTEM</title>
     <style>
-        /* Dasar & Background Matrix */
+        /* Dasar & Background Matrix - Science Edition */
         body {
             margin: 0;
             padding: 0;
-            background-color: black;
+            background-color: #00080a; /* Hitam kebiruan */
             overflow: hidden;
             font-family: 'Courier New', Courier, monospace;
         }
@@ -25,13 +25,13 @@
         .content {
             position: relative;
             z-index: 2;
-            color: #00FF00;
+            color: #00d9ff; /* Cyan Sains */
             padding: 30px;
             text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
         }
 
         h1 {
-            border-bottom: 2px solid #00FF00;
+            border-bottom: 2px solid #00d9ff;
             display: inline-block;
             margin-bottom: 10px;
         }
@@ -48,7 +48,7 @@
         }
 
         .green-header {
-            color: #00FF00;
+            color: #00d9ff;
             font-weight: bold;
             margin-bottom: 10px;
             display: block;
@@ -65,7 +65,7 @@
             display: inline-block;
             width: 10px;
             height: 1.2em;
-            background-color: #00FF00;
+            background-color: #00d9ff;
             animation: blink 0.7s infinite;
             vertical-align: middle;
             margin-left: 5px;
@@ -94,22 +94,21 @@
     </div>
 
     <script>
-        // --- 1. EFEK SCIENCE RAIN (Rumus Kimia/Fisi>
-        const symbols = "H2O CO2 E=mc² ∑ π sin(x) log>
-        const chars = symbols.split(" ");
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill>
+        // --- LOGIKA MATRIX RAIN (SCIENCE VERSION) ---
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()";
+        // Aksara Sains: Simbol Greek, Elemen, dan Matematik
+        const characters = "πΔΩ∞∑√∫µσλHHeLiBeBCNOFNeNaMgAlSiPSClArKCa0123456789+−×÷=<>±";
         const fontSize = 16;
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
 
         function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillStyle = "rgba(0, 8, 10, 0.05)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.font = fontSize + "px monospace";
@@ -117,8 +116,8 @@
             for (let i = 0; i < drops.length; i++) {
                 const text = characters.charAt(Math.floor(Math.random() * characters.length));
                 
-                // Hijau gelap agar tidak terlalu terang
-                ctx.fillStyle = Math.random() > 0.95 ? "#008800" : "#003300";
+                // Warna biru/cyan sains
+                ctx.fillStyle = Math.random() > 0.95 ? "#00d9ff" : "#004466";
 
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
@@ -129,7 +128,7 @@
             }
         }
 
-        // --- LOGIKA MENAIP (TYPING EFFECT) ---
+        // --- LOGIKA MENAIP (TYPING EFFECT) - TIADA PERUBAHAN TEKS ---
         const textToType = "Heyyyooo , i'm riss without N.\n\nThis is my first real IT project .\n\n\"Be happy , be horny , be lolot.\"";
         let charIndex = 0;
         const speed = 70; // Kecepatan menaip (ms)
@@ -137,7 +136,6 @@
         function typeEffect() {
             if (charIndex < textToType.length) {
                 let currentChar = textToType.charAt(charIndex);
-                // Mengubah newline \n menjadi <br> agar baris baru berfungsi di HTML
                 if (currentChar === "\n") {
                     document.getElementById("typewriter").innerHTML += "<br>";
                 } else {
@@ -160,3 +158,4 @@
     </script>
 </body>
 </html>
+
