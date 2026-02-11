@@ -1,147 +1,123 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Science Web Termux</title>
+    <title>RISSSYSTEM</title>
     <style>
-        /* Gaya Dasar */
+        /* Dasar & Background Matrix */
         body {
             margin: 0;
             padding: 0;
-            background-color: #000;
-            color: #0f0; /* Warna hijau hacker */
+            background-color: black;
+            overflow: hidden;
             font-family: 'Courier New', Courier, monospace;
-            overflow-x: hidden; /* Mencegah scroll samping */
         }
 
-        /* Canvas untuk Science Rain */
-        #scienceCanvas {
+        #matrix-canvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Taruh di belakang tulisan */
+            z-index: 1;
         }
 
-        /* Kontainer Konten */
-        .container {
+        /* Konten Utama */
+        .content {
             position: relative;
-            z-index: 1;
-            text-align: center;
-            padding-top: 20%;
+            z-index: 2;
+            color: #00FF00;
+            padding: 30px;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
         }
 
         h1 {
-            font-size: 3em;
-            text-shadow: 0 0 10px #0f0;
-        }
-
-        p {
-            font-size: 1.2em;
-            background: rgba(0, 0, 0, 0.7); /* Latar belakang transparan agar tulisan terbaca */
+            border-bottom: 2px solid #00FF00;
             display: inline-block;
-            padding: 10px;
+            margin-bottom: 10px;
         }
 
-        /* Gaya Tombol */
-        .btn-about {
-            background-color: transparent;
-            border: 2px solid #00ffcc;
-            color: #00ffcc;
-            padding: 15px 30px;
+        .focus-text {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .typing-container {
             font-size: 1.2em;
-            cursor: pointer;
+            line-height: 1.6;
+            color: #ffffff; /* Warna teks putih agar kontras */
+        }
+
+        .green-header {
+            color: #00FF00;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .quote {
+            font-style: italic;
             margin-top: 20px;
-            transition: 0.3s;
-            font-family: inherit;
+            color: #d1d1d1;
         }
 
-        .btn-about:hover {
-            background-color: #00ffcc;
-            color: #000;
-            box-shadow: 0 0 20px #00ffcc;
+        /* Cursor berkedip */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background-color: #00FF00;
+            animation: blink 0.7s infinite;
+            vertical-align: middle;
+            margin-left: 5px;
         }
 
-        /* Animasi Naga Python (Sederhana menggunakan Emoji/Teks) */
-        #python-dragon {
-            position: absolute;
-            font-size: 3em;
-            user-select: none;
-            pointer-events: none;
-            animation: moveSnake 10s linear infinite;
-        }
-
-        @keyframes moveSnake {
-            0% { left: -10%; top: 80%; transform: rotate(0deg); }
-            50% { left: 50%; top: 20%; transform: rotate(10deg); }
-            100% { left: 110%; top: 80%; transform: rotate(0deg); }
-        }
-
-        /* Kotak Pesan (Modal) */
-        #messageBox {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #002200;
-            border: 2px solid #0f0;
-            padding: 20px;
-            z-index: 100;
-            box-shadow: 0 0 50px rgba(0, 255, 0, 0.5);
+        @keyframes blink {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="scienceCanvas"></canvas>
+    <canvas id="matrix-canvas"></canvas>
 
-    <div id="python-dragon">🐉🐍</div>
+    <div class="content">
+        <h1>> RISSSYSTEM</h1>
+        <p class="focus-text">Current focus: Mastering HTML5, JAVA, & CSS3</p>
 
-    <div class="container">
-        <h1>Selamat Datang</h1>
-        <p>Website ini dibuat melalui Termux & GitHub.</p>
-        <br>
-        <button class="btn-about" onclick="tampilkanPesan()">About Me</button>
-    </div>
-
-    <div id="messageBox" onclick="tutupPesan()">
-        <h2>HAI 👋</h2>
-        <p>(Klik untuk menutup)</p>
+        <span class="green-header">> TOORYSSS_SYSTEM</span>
+        
+        <div class="typing-container">
+            <span id="typewriter"></span><span class="cursor"></span>
+        </div>
     </div>
 
     <script>
-        // --- 1. LOGIKA SCIENCE RAIN ---
-        const canvas = document.getElementById('scienceCanvas');
+        // --- LOGIKA MATRIX RAIN ---
+        const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        // Karakter Sains (Matematika, Kimia, Fisika)
-        const scienceChars = '∑∏∫√∞∆πΩθλμH2Omc²E=F=ma01';
-        const characters = scienceChars.split('');
-
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()";
         const fontSize = 16;
         const columns = canvas.width / fontSize;
-        const drops = [];
+        const drops = Array(Math.floor(columns)).fill(1);
 
-        for (let x = 0; x < columns; x++) {
-            drops[x] = 1;
-        }
-
-        function drawRain() {
-            // Efek jejak (trail) transparan
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = '#00ffcc'; // Warna Cyan Sains
-            ctx.font = fontSize + 'px monospace';
+            ctx.font = fontSize + "px monospace";
 
             for (let i = 0; i < drops.length; i++) {
-                const text = characters[Math.floor(Math.random() * characters.length)];
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                
+                // Hijau gelap agar tidak terlalu terang
+                ctx.fillStyle = Math.random() > 0.95 ? "#008800" : "#003300";
+
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
                 if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
@@ -151,18 +127,30 @@
             }
         }
 
-        setInterval(drawRain, 33);
+        // --- LOGIKA MENAIP (TYPING EFFECT) ---
+        const textToType = "Heyyyooo , i'm riss without N.\n\nThis is my first real IT project .\n\n\"Be happy , be horny , be lolot.\"";
+        let charIndex = 0;
+        const speed = 70; // Kecepatan menaip (ms)
 
-        // --- 2. LOGIKA TOMBOL ---
-        function tampilkanPesan() {
-            document.getElementById('messageBox').style.display = 'block';
+        function typeEffect() {
+            if (charIndex < textToType.length) {
+                let currentChar = textToType.charAt(charIndex);
+                // Mengubah newline \n menjadi <br> agar baris baru berfungsi di HTML
+                if (currentChar === "\n") {
+                    document.getElementById("typewriter").innerHTML += "<br>";
+                } else {
+                    document.getElementById("typewriter").innerHTML += currentChar;
+                }
+                charIndex++;
+                setTimeout(typeEffect, speed);
+            }
         }
 
-        function tutupPesan() {
-            document.getElementById('messageBox').style.display = 'none';
-        }
+        // Mulai Animasi
+        setInterval(drawMatrix, 35);
+        window.onload = typeEffect;
 
-        // Agar canvas responsif saat layar diubah ukurannya
+        // Resize canvas jika layar berubah
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -170,4 +158,3 @@
     </script>
 </body>
 </html>
-
